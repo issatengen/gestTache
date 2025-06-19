@@ -1,0 +1,38 @@
+
+{{ form_start(form) }}
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="user_name" class="fw-bold">Nom d'utilisateur</label>
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    <label for="user_surname" class="fw-bold">Prénom d'utilisateur</label>
+                    {{ form_widget(form.surname, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    <label for="user_username" class="fw-bold">Email d'utilisateur</label>
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-6">
+                    <label for="user_telephone" class="fw-bold">Téléphone d'utilisateur</label>
+                    {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <label for="user_role" class="fw-bold">Rôle d'utilisateur</label>
+                    {#<p class="text-muted">Le rôle de l'utilisateur est obligatoire</p> #}
+                    {{ form_widget(form.role, {'attr': {'class': 'form-select'}}) }}
+                </div>
+                <div class="col-md-7">
+                    <button class="btn btn-primary mt-4" type="submit">
+                        <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+                    </button> 
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Role{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Rôle {{ role.label }}</h1>
+        <a href="{{ path('app_role_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa fa-arrow-left me-1"></i> Liste des rôles
+        </a>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_role_index') }}" class="text-decoration-none">rôles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter rôle</li>
+        </ol>
+    </nav>
+    <hr class="sidebar-divider mb-4">
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ role.id }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ role.code }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ role.label }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ role.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ include('role/_delete_form.html.twig') }}
+{% endblock %}

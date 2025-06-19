@@ -1,0 +1,27 @@
+    <div class="container mt-5">
+        <div class="card">
+            <hr class="my-1">
+            <div class="row container mt-2">
+                <div class="col-md-6 bg-light p-4 rounded shadow">
+                    {{ form_start(form) }}
+                    <div>
+                        <label for="libelle">Libellé de l'activité </label>
+                        {{ form_widget(form.label,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div>
+                        <label for="libelle">Type </label>
+                        {{ form_widget(form.user,{'attr':{'class':'form-select'}}) }}
+                    </div>
+                    <button class="btn btn-primary mt-3" type="submit"><i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}</button>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-md-6 text-center">
+                    <i class="fa-solid fa-tasks fa-5x text-primary"></i>
+                    <h2 class="mt-5">Pourquoi ajouter une activité ?</h2>
+                    <p class="lead">Ajouter une activité permet de planifier, organiser et suivre les différentes tâches ou événements au sein de application.</p>
+                    <h5 class="mt-4">Pourquoi sélectionner un type ?</h5>
+                    <p class="text-muted">Le type d'activité permet de catégoriser chaque activité pour une meilleure gestion, un suivi précis et une analyse efficace des actions réalisées.</p>
+                </div>
+            </div>
+        </div>
+    </div>

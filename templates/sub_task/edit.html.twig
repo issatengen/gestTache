@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SubTask{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Liste des sous-tâchesde la tâche {{sub_tasks.task.designation}}</h1>
+        <a href="{{ path('app_sub_task_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa fa-add me-1"></i> Retourner
+        </a>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_task_index') }}" class="text-decoration-none">Tâches</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter sous-tâche</li>
+        </ol>
+    </nav>
+    <hr class="sidebar-divider mb-4">
+
+    <div class="container mt-5">
+        <div class="card">
+            <hr class="my-1">
+            <div class="row container mt-2">
+                <div class="col-md-6 bg-light p-4 rounded shadow">
+                    {{ include('sub_task/_form.html.twig', {'button_label': 'Update'}) }}
+                </div>
+                <div class="col-md-6 text-center">
+                    <i class="fa-solid fa-tasks fa-5x text-primary"></i>
+                    <h2 class="mt-5">Pourquoi modifier une sous-tâche&nbsp;?</h2>
+                    <p class="lead">Modifier une sous-tâche permet d'ajuster, corriger ou mettre à jour les informations pour mieux refléter l'avancement ou les changements dans la tâche principale.</p>
+                    <h5 class="mt-4">Pourquoi garder la liaison avec la tâche principale&nbsp;?</h5>
+                    <p class="text-muted">Maintenir l'association avec la tâche principale assure une gestion cohérente et un suivi précis de l'ensemble du projet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ include('sub_task/_delete_form.html.twig') }}
+{% endblock %}

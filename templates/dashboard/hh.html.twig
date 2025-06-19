@@ -1,0 +1,230 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Ajouter un rôle</h1>
+        <a href="{{ path('app_role_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa fa-arrow-left me-1"></i> Liste des rôles
+        </a>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_role_index') }}" class="text-decoration-none">rôles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter rôle</li>
+        </ol>
+    </nav>
+    <div class="row">
+
+        <!-- Total Users Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Utilisateurs</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalUsers }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Tasks Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Tâches</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalTasks }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-tasks fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completed Tasks Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Tâches terminées</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ completedTasks }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roles Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Rôles</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalRoles }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-tag fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row">
+
+        <!-- Tasks Status Pie Chart -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Répartition des tâches</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="tasksPieChart"></canvas>
+                    <div class="mt-4 text-center small">
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-success"></i> Terminées
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-warning"></i> En cours
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle text-danger"></i> En retard
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users by Role Bar Chart -->
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Utilisateurs par rôle</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="usersRoleBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Recent Tasks Table -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Tâches récentes</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Assigné à</th>
+                            <th>Statut</th>
+                            <th>Date limite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in recentTasks %}
+                            <tr>
+                                <td>{{ task.title }}</td>
+                                <td>{{ task.assignedTo.username }}</td>
+                                <td>
+                                    {% if task.status == 'completed' %}
+                                        <span class="badge bg-success">Terminée</span>
+                                    {% elseif task.status == 'in_progress' %}
+                                        <span class="badge bg-warning text-dark">En cours</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">En retard</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ task.deadline|date('d/m/Y') }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">Aucune tâche récente</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Scripts -->
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Pie Chart for Tasks Status
+            const tasksPieCtx = document.getElementById('tasksPieChart').getContext('2d');
+            new Chart(tasksPieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Terminées', 'En cours', 'En retard'],
+                    datasets: [{
+                        data: [
+                            {{ completedTasks }},
+                            {{ inProgressTasks }},
+                            {{ overdueTasks }}
+                        ],
+                        backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b'],
+                        hoverBackgroundColor: ['#17a673', '#dda20a', '#be2617'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Bar Chart for Users by Role
+            const usersRoleCtx = document.getElementById('usersRoleBarChart').getContext('2d');
+            new Chart(usersRoleCtx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for role in rolesStats %}'{{ role.name }}'{% if not loop.last %}, {% endif %}{% endfor %}],
+                    datasets: [{
+                        label: 'Utilisateurs',
+                        data: [{% for role in rolesStats %}{{ role.userCount }}{% if not loop.last %}, {% endif %}{% endfor %}],
+                        backgroundColor: '#4e73df'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

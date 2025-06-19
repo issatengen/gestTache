@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Role{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Ajouter un rôle</h1>
+        <a href="{{ path('app_role_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa fa-arrow-left me-1"></i> Liste des rôles
+        </a>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_role_index') }}" class="text-decoration-none">rôles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter rôle</li>
+        </ol>
+    </nav>
+    <div class="container mt-5">
+        <div class="card">
+            <hr class="my-1">
+            <div class="row container mt-2">
+                <div class="col-md-6 bg-light p-4 rounded shadow">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        <label for="role_name" class="form-label">Code</label>
+                        {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="role_name" class="form-label">libélle</label>
+                        {{ form_widget(form.label, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="role_name" class="form-label">Description</label>
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}</button>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-md-6 text-center">
+                    <i class="fa-solid fa-user-tag fa-5x text-primary"></i>
+                    <h2 class="mt-5">Pourquoi ajouter les Rôles?</h2>
+                    <p class="lead">Pour definier les permissions des utilisateurs et leur niveau d'accès effectivement.</p>
+                    <p class="text-muted">Les Rôles permet de gérer les sécurité de l'application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

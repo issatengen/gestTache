@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Week{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Semaine</h1>
+        <a href="{{ path('app_task_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa fa-add me-1"></i> Tâches
+        </a>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Semaine</li>
+        </ol>
+    </nav>
+
+    {{ include('week/_form.html.twig') }}
+
+    <a href="{{ path('app_week_index') }}">back to list</a>
+{% endblock %}

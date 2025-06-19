@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SubTask index{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Liste des sous-tâchesde la tâche</h1>
+        <a href="{{ path('app_sub_task_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fa fa-add me-1"></i> Ajouter une sous-tâche
+        </a>
+    </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
+            <li class="breadcrumb-item"><a href="{{ path('app_task_index') }}" class="text-decoration-none">Tâches</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter sous-tâche</li>
+        </ol>
+    </nav>
+    <hr class="sidebar-divider mb-4">
+
+    {# <table class="table">
+        <tbody>
+        {% for sub_task in sub_tasks %}
+            <tr>
+                <td>{{ sub_task.id }}</td>
+                <td>{{ sub_task.label }}</td>
+                <td>{{ sub_task.debut ? sub_task.debut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sub_task.fin ? sub_task.fin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_sub_task_show', {'id': sub_task.id}) }}">show</a>
+                    <a href="{{ path('app_sub_task_edit', {'id': sub_task.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> #}
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-bordered table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Libellé</th>
+                        <th scope="col">Debut</th>
+                        <th scope="col">Fin</th>
+                        <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for sub_task in sub_tasks %}
+                    <tr>
+                        <td>{{ sub_task.id }}</td>
+                        <td>{{ sub_task.label }}</td>
+                        <td>{{ sub_task.debut ? sub_task.debut|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ sub_task.fin ? sub_task.fin|date('Y-m-d H:i:s') : '' }}</td>
+                        <td class="text-end">
+                            <a href="{{ path('app_sub_task_show', {'id': sub_task.id}) }}" class="btn btn-sm btn-outline-info me-1" title="Afficher"><i class="fa fa-eye me-1"></i></a>
+                            <a href="{{ path('app_sub_task_edit', {'id': sub_task.id}) }}" class="btn btn-sm btn-outline-secondary" title="Modifier"><i class="fa fa-pencil me-1"></i></a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">Aucune Sous-tâche trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
