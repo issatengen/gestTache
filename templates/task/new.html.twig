@@ -17,6 +17,17 @@
         </ol>
     </nav>
     <hr class="sidebar-divider mb-4">
+    {% block form_errors %}
+        {% if form.vars.errors|length > 0 %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in form.vars.errors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endblock %}
 
     <div class="col-8">
         {{ include('task/_form.html.twig') }}

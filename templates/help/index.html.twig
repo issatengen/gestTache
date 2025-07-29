@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aide & Documentation{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary-emphasis">
+            <i class="fa-solid fa-circle-info"></i> Aide & Documentation
+        </h1>
+        <p class="lead">Découvrez le fonctionnement de l'application TaskMaster et trouvez des réponses à vos questions.</p>
+    </div>
+
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary-subtle text-primary-emphasis">
+            <i class="fa-solid fa-app-store"></i> Description de l'application
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>TaskMaster</strong> est une application de gestion des tâches permettant aux utilisateurs d'organiser, suivre et planifier leurs activités au sein d'une organisation. Elle offre une interface intuitive pour la création, la modification et la visualisation des tâches, sous-tâches, départements, utilisateurs et semaines de travail.
+            </p>
+        </div>
+    </div>
+
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary-subtle text-primary-emphasis">
+            <i class="fa-solid fa-gears"></i> Fonctionnement des principales fonctionnalités
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <i class="fa-solid fa-list-check text-primary-emphasis"></i>
+                    <strong>Gestion des tâches :</strong> Créez, modifiez et supprimez des tâches. Chaque tâche peut être associée à un département, des utilisateurs et des semaines spécifiques.
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-diagram-project text-primary-emphasis"></i>
+                    <strong>Gestion des sous-tâches :</strong> Ajoutez des sous-tâches à une tâche principale pour mieux organiser le travail.
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-users text-primary-emphasis"></i>
+                    <strong>Gestion des utilisateurs :</strong> Attribuez des tâches aux utilisateurs et gérez leurs informations.
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-building text-primary-emphasis"></i>
+                    <strong>Gestion des départements :</strong> Classez les tâches par département pour une meilleure organisation.
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-calendar-week text-primary-emphasis"></i>
+                    <strong>Gestion des semaines :</strong> Planifiez les tâches selon les semaines de travail.
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-chart-bar text-primary-emphasis"></i>
+                    <strong>Tableau de bord :</strong> Visualisez un résumé des tâches, sous-tâches, utilisateurs et départements avec des graphiques et statistiques.
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-magnifying-glass text-primary-emphasis"></i>
+                    <strong>Recherche & Filtrage :</strong> Recherchez des tâches, utilisateurs ou départements grâce à des filtres avancés.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mb-4 border-primary">
+        <div class="card-header bg-primary-subtle text-primary-emphasis">
+            <i class="fa-solid fa-circle-question"></i> FAQ
+        </div>
+        <div class="card-body">
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1">
+                        <button class="accordion-button text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                            Comment créer une nouvelle tâche ?
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Cliquez sur le bouton <span class="badge bg-primary"><i class="fa-solid fa-circle-plus"></i> Ajouter</span> dans la section des tâches, remplissez le formulaire et validez.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2">
+                        <button class="accordion-button collapsed text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            Comment attribuer une tâche à un utilisateur ?
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Lors de la création ou modification d'une tâche, sélectionnez l'utilisateur dans la liste proposée.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq3">
+                        <button class="accordion-button collapsed text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                            Puis-je modifier une tâche après sa création ?
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Oui, cliquez sur l'icône <i class="fa-solid fa-pen-to-square"></i> à côté de la tâche pour la modifier.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq4">
+                        <button class="accordion-button collapsed text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                            Comment visualiser le tableau de bord ?
+                        </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Accédez à la section <strong>Tableau de bord</strong> depuis le menu principal pour voir les statistiques et graphiques.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq5">
+                        <button class="accordion-button collapsed text-primary-emphasis" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                            Que faire en cas de problème technique ?
+                        </button>
+                    </h2>
+                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Contactez l'administrateur ou consultez la documentation technique disponible dans la section d'aide.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-primary">
+        <div class="card-header bg-primary-subtle text-primary-emphasis">
+            <i class="fa-solid fa-lightbulb"></i> Conseils d'utilisation
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>Utilisez les filtres pour retrouver rapidement une tâche ou un utilisateur.</li>
+                <li>Consultez régulièrement le tableau de bord pour suivre l'avancement des tâches.</li>
+                <li>Attribuez des sous-tâches pour mieux répartir le travail.</li>
+                <li>Vérifiez les dates de début et de fin pour une meilleure planification.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

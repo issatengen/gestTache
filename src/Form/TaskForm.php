@@ -18,11 +18,11 @@ class TaskForm extends AbstractType
             ->add('designation')
             ->add('debut')
             ->add('fin')
-            ->add('task', EntityType::class, [
-                'class' => Week::class,
-                'choice_label' => 'debut',
-                'multiple' => true, 
-            ])
+            // ->add('task', EntityType::class, [
+            //     'class' => Week::class,
+            //     'choice_label' => 'debut',
+            //     'multiple' => true, 
+            // ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'name',

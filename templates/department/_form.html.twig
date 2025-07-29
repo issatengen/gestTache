@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+<div>
+    <label for="libelle">Code </label>
+    {{ form_widget(form.code, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div>
+    <label for="debut">Libellé </label>
+    {{ form_widget(form.label, {'attr': {'class': 'form-control'}}) }}
+</div>
+<button class="btn btn-primary" type="submit" id="submit_button">
+    <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" id="spinner" style="display: none;"></span>
+    <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+</button>
+{{ form_end(form) }}

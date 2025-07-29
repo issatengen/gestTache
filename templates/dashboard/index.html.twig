@@ -1,23 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Tableau de board{% endblock %}
 
 {% block body %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Ajouter un rôle</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fa fa-arrow-left me-1"></i> Liste des rôles
-        </a>
+        <h1 class="h3 mb-0 text-gray-800 text-primary-emphasis">Tableau de bord</h1>
     </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Tableau de bord</a></li>
-            <li class="breadcrumb-item"><a href="#" class="text-decoration-none">rôles</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Ajouter rôle</li>
         </ol>
     </nav>
     <div class="row">
+     <hr class="sidebar-divider mb-4">
 
         <!-- Total Users Card -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -25,12 +21,12 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Utilisateurs</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
+                            <div class="text-xs font-weight-bold text-primary-emphasis text-uppercase mb-1">
+                                Employés</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ countUsers }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                            <i class="fas fa-users fa-2x text-primary-300"></i>
                         </div>
                     </div>
                 </div>
@@ -45,7 +41,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Tâches</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ countTasks }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-tasks fa-2x text-gray-300"></i>
@@ -80,8 +76,8 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Rôles</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                départements</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ countDepartments }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-tag fa-2x text-gray-300"></i>
@@ -100,7 +96,7 @@
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Répartition des tâches</h6>
+                    <h6 class="m-0 font-weight-bold text-primary-emphasis">Répartition des tâches</h6>
                 </div>
                 <div class="card-body">
                     <canvas id="tasksPieChart"></canvas>
@@ -123,7 +119,7 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Utilisateurs par rôle</h6>
+                    <h6 class="m-0 font-weight-bold text-primary-emphasis">Utilisateurs par rôle</h6>
                 </div>
                 <div class="card-body">
                     <canvas id="usersRoleBarChart"></canvas>
@@ -136,7 +132,7 @@
     <!-- Recent Tasks Table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tâches récentes</h6>
+            <h6 class="m-0 font-weight-bold text-primary-emphasis">Tâches récentes</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">

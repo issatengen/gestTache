@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,9 +20,19 @@ class Task
     private ?string $designation = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "La date de début est obligatoire.")]
+    #[Assert\GreaterThanOrEqual(
+        value: "today", 
+        message: 'La date de début doit être aujourd\'hui ou dans le futur.'
+    )]
     private ?\DateTime $debut = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: "La date de début est obligatoire.")]
+    #[Assert\GreaterThanOrEqual(
+        value: "today", 
+        message: 'La date de fin doit être aujourd\'hui ou dans le futur.'
+    )]
     private ?\DateTime $fin = null;
 
     /**
@@ -41,6 +52,9 @@ class Task
      */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'tasks')]
     private Collection $user;
+
+    #[ORM\ManyToOne(inversedBy: 'tasks')]
+    private ?Department $department = null;
 
     public function __construct()
     {
@@ -167,6 +181,18 @@ class Task
     public function removeUser(User $user): static
     {
         $this->user->removeElement($user);
+
+        return $this;
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): static
+    {
+        $this->department = $department;
 
         return $this;
     }

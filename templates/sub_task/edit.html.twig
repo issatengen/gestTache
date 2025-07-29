@@ -5,10 +5,10 @@
 {% block body %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des sous-tâchesde la tâche {{sub_tasks.task.designation}}</h1>
-        <a href="{{ path('app_sub_task_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <h1 class="h3 mb-0 text-gray-800 text-primary-emphasis">Modifier: {{Stask.label}}</h1>
+        {# <a href="{{ path('app_sub_task_index', {'id': ttId}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fa fa-add me-1"></i> Retourner
-        </a>
+        </a> #}
     </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -27,7 +27,7 @@
                     {{ include('sub_task/_form.html.twig', {'button_label': 'Update'}) }}
                 </div>
                 <div class="col-md-6 text-center">
-                    <i class="fa-solid fa-tasks fa-5x text-primary"></i>
+                    <i class="fa-solid fa-tasks fa-5x text-primary-emphasis"></i>
                     <h2 class="mt-5">Pourquoi modifier une sous-tâche&nbsp;?</h2>
                     <p class="lead">Modifier une sous-tâche permet d'ajuster, corriger ou mettre à jour les informations pour mieux refléter l'avancement ou les changements dans la tâche principale.</p>
                     <h5 class="mt-4">Pourquoi garder la liaison avec la tâche principale&nbsp;?</h5>

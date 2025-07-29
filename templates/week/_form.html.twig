@@ -1,4 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn" id="submit-button" type="submit">
+        <span class="spinner fa fa-spinner fa-spin" id="spinner" style="display: none;"></span>
+        <span class="fa fa-check" style="display: none;"></span>
+        <span class="fa fa-save"></span>
+        {{ button_label|default('Save') }}
+    </button>
 {{ form_end(form) }}

@@ -35,11 +35,14 @@
                         <label for="role_name" class="form-label">Description</label>
                         {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}</button>
+                    <button class="btn btn-primary" type="submit" id="submit_button">
+                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" id="spinner" style="display: none;"></span>
+                        <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+                    </button>
                     {{ form_end(form) }}
                 </div>
                 <div class="col-md-6 text-center">
-                    <i class="fa-solid fa-user-tag fa-5x text-primary"></i>
+                    <i class="fa-solid fa-user-tag fa-5x text-primary-emphasis"></i>
                     <h2 class="mt-5">Pourquoi ajouter les Rôles?</h2>
                     <p class="lead">Pour definier les permissions des utilisateurs et leur niveau d'accès effectivement.</p>
                     <p class="text-muted">Les Rôles permet de gérer les sécurité de l'application.</p>

@@ -12,11 +12,14 @@
                         <label for="libelle">Type </label>
                         {{ form_widget(form.user,{'attr':{'class':'form-select'}}) }}
                     </div>
-                    <button class="btn btn-primary mt-3" type="submit"><i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}</button>
+                    <button class="btn btn-primary" type="submit" id="submit_button">
+                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" id="spinner" style="display: none;"></span>
+                        <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+                    </button>
                     {{ form_end(form) }}
                 </div>
                 <div class="col-md-6 text-center">
-                    <i class="fa-solid fa-tasks fa-5x text-primary"></i>
+                    <i class="fa-solid fa-tasks fa-5x text-primary-emphasis"></i>
                     <h2 class="mt-5">Pourquoi ajouter une activité ?</h2>
                     <p class="lead">Ajouter une activité permet de planifier, organiser et suivre les différentes tâches ou événements au sein de application.</p>
                     <h5 class="mt-4">Pourquoi sélectionner un type ?</h5>

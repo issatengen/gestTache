@@ -14,9 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/activity')]
 final class ActivityController extends AbstractController
 {
+    
     #[Route(name: 'app_activity_index', methods: ['GET'])]
     public function index(ActivityRepository $activityRepository): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('activity/index.html.twig', [
             'activities' => $activityRepository->findAll(),
         ]);
@@ -25,6 +29,9 @@ final class ActivityController extends AbstractController
     #[Route('/new', name: 'app_activity_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         $activity = new Activity();
         $form = $this->createForm(ActivityForm::class, $activity);
         $form->handleRequest($request);
@@ -46,6 +53,9 @@ final class ActivityController extends AbstractController
     #[Route('/{id}', name: 'app_activity_show', methods: ['GET'])]
     public function show(Activity $activity): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('activity/show.html.twig', [
             'activity' => $activity,
         ]);
@@ -54,6 +64,9 @@ final class ActivityController extends AbstractController
     #[Route('/{id}/edit', name: 'app_activity_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Activity $activity, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         $form = $this->createForm(ActivityForm::class, $activity);
         $form->handleRequest($request);
 
@@ -72,6 +85,9 @@ final class ActivityController extends AbstractController
     #[Route('/{id}', name: 'app_activity_delete', methods: ['POST'])]
     public function delete(Request $request, Activity $activity, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->isCsrfTokenValid('delete'.$activity->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($activity);
             $entityManager->flush();

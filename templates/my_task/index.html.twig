@@ -1,32 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task index{% endblock %}
+{% block title %}Mes tâches{% endblock %}
 
 {% block body %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 text-primary-emphasis"><i class="fa fa-list me-2"></i>Tâches</h1>
-        <div class="dropdown">
-            <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="addTaskDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-add me-1"></i> Ajouter une tâche
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="addTaskDropdown">
-                <span class="h6 text-primary-emphasis text-center">Sélectionner un département/Compétence requise</span>
-                <li><hr class="dropdown-divider"></li>
-                {% if departments is empty %}
-                    <li><a class="dropdown-item" href="#">Aucun département disponible</a></li>
-                {% else %}
-                     {% for department in departments %}
-                        <li><a class="dropdown-item" href="{{ path('app_task_new', {'id': department.id}) }}">{{ department.label }}</a></li>
-                    {% endfor %}
-                {% endif %}
-            </ul>
-        </div>
+        <h1 class="h3 mb-0 text-gray-800 text-primary-emphasis"><i class="fa fa-list me-2"></i> Mes tâches</h1>
     </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tâches</li>
+            <li class="breadcrumb-item active" aria-current="page">Mes tâches</li>
         </ol>
     </nav>
     <hr class="sidebar-divider mb-4">
@@ -38,7 +22,7 @@
                     <tr>
                         <th scope="col">Designation</th>
                         <th scope="col">Département</th>
-                        <th scope="col">Responsable(s)</th>
+                        <th scope="col">Participant(s)</th>
                         <th scope="col">Debut</th>
                         <th scope="col">Fin</th>
                         {# <th scope="col">Participation</th> #}
@@ -58,7 +42,7 @@
                                         <a class="text-decoration-none text-primary-emphasis"
                                            href="{{ path('app_user_show', {'id': user.id}) }}"
                                            style="transition: box-shadow 0.2s;">
-                                            <img src="{{ asset('upload_images/' ~ user.profilePicture) }}"
+                                            <img src="{{ asset('upload_images/' ~ user.profilePicture ) }}"
                                                  alt="User Profile"
                                                  class="rounded-circle border border-primary-emphasis border-2"
                                                  style="width:35px;height:35px; object-fit: cover; transition: box-shadow 0.2s;">
@@ -71,22 +55,12 @@
                                 <span class="text-muted"><i class="fa-solid fa-user-slash"></i> Aucun utilisateur n'est assigné à cette tâche.</span>
                             {% endif %}
                         </td>
-                        {# {% if task.debut %}
-                                <span class="badge bg-info text-dark">
-                                    {{ task.debut|date('Y-m-d') }}
-                                </span>
-                                <span class="badge bg-warning text-dark">
-                                    {{ task.debut|date('H:i:s') }}
-                                </span>
-                            {% else %}
-                                <span class="badge bg-secondary">-</span>
-                            {% endif %} #}
                         <td>{{ task.debut ? task.debut|date('Y-m-d H:i:s') : '' }}</td>
                         <td>{{ task.fin ? task.fin|date('Y-m-d H:i:s') : '' }}</td>
                         {# <td>{{task.user }}</td> #}
                         <td class="text-end">
-                            <a href="{{ path('app_task_show', {'id': task.id}) }}" class="btn btn-sm btn-primary me-1" title="Afficher"><i class="fa fa-eye me-1"></i></a>
-                            <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn btn-sm btn-secondary" title="Modifier"><i class="fa fa-pencil me-1"></i></a>
+                            {# <a href="{{ path('app_task_show', {'id': task.id}) }}" class="btn btn-sm btn-primary me-1" title="Afficher"><i class="fa fa-eye me-1"></i></a>
+                            <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn btn-sm btn-secondary" title="Modifier"><i class="fa fa-pencil me-1"></i></a> #}
                             <a href="{{ path('app_sub_task_index', {'id': task.id}) }}" class="btn btn-sm btn-info" title="Activités"><i class="fa-solid fa-arrows-turn-to-dots"></i></i></a>
                             
                         </td>
@@ -102,3 +76,4 @@
     </div>
 
 {% endblock %}
+

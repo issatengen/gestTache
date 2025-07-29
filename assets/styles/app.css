@@ -124,6 +124,13 @@ body {
 #content.collapsed {
     margin-left: 0;
 }
+
+.pp:hover {
+    width: 100px;
+    height: 100px;
+    transition: width 0.3s ease, height 0.3s ease;
+    border-radius: 50%;
+}
         
 @media (max-width: 768px) {
     #sidebar {

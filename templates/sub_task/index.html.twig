@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SubTask index{% endblock %}
+{% block title %}Sous-tâches{% endblock %}
 
 {% block body %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Liste des sous-tâchesde la tâche</h1>
-        <a href="{{ path('app_sub_task_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <h1 class="h4 mb-0 text-gray-800 text-primary-emphasis">{{ task.designation }}</h1>
+        <h3 class="h6 mb-0 text-gray-800 text-secondary-emphasis">
+            <span class="badge bg-secondary">{{ sub_tasks|length }}</span> sous-tâches
+        </h3>
+        <a href="{{ path('app_sub_task_new', {'id': task.id}) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fa fa-add me-1"></i> Ajouter une sous-tâche
         </a>
     </div>
@@ -14,7 +17,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
             <li class="breadcrumb-item"><a href="{{ path('app_task_index') }}" class="text-decoration-none">Tâches</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Ajouter sous-tâche</li>
+            <li class="breadcrumb-item active" aria-current="page">Sous-tâche</li>
         </ol>
     </nav>
     <hr class="sidebar-divider mb-4">
@@ -43,24 +46,98 @@
     <div class="card shadow-sm">
         <div class="card-body p-0">
             <table class="table table-bordered table-hover mb-0">
+                <h3 class="h3 mb-0 text-gray-800 text-secondary-emphasis">
+                    <span class="badge bg-secondary">{{ dateNow|date('d F Y H:i', 'Africa/Douala', 'fr_FR') }}</span>
+                </h3>
                 <thead class="table-light">
                     <tr>
                         <th scope="col">Libellé</th>
                         <th scope="col">Debut</th>
                         <th scope="col">Fin</th>
+                        <th scope="col" title="Temps alloué">Temps</th>
+                        <th scope="col">Responsable</th>
+                        <th scope="col" title="Niveau d'exécution de tâche">Status</th>
                         <th scope="col" class="text-end">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for sub_task in sub_tasks %}
+                {% for sub_task in sub_tasks %} 
                     <tr>
-                        <td>{{ sub_task.id }}</td>
                         <td>{{ sub_task.label }}</td>
-                        <td>{{ sub_task.debut ? sub_task.debut|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ sub_task.fin ? sub_task.fin|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            {% if sub_task.debut %}
+                                <span class="badge bg-info text-dark">
+                                    {{ sub_task.debut|date('Y-m-d') }}
+                                </span>
+                                <span class="badge bg-warning text-dark">
+                                    {{ sub_task.debut|date('H:i:s') }}
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">-</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if sub_task.fin %}
+                                <span class="badge bg-primary">
+                                    {{ sub_task.fin|date('Y-m-d') }}
+                                </span>
+                                <span class="badge bg-danger">
+                                    {{ sub_task.fin|date('H:i:s') }}
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">-</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ sub_task.timeAllocated ? sub_task.timeAllocated*10 ~ 'H' : '' }}</td>
+                        <td>
+                            <span class="mb-2">
+                                <a class="text-decoration-none text-primary-emphasis"
+                                    href="{{ path('app_user_show', {'id': sub_task.user.id}) }}"
+                                    style="transition: box-shadow 0.2s;">
+                                    <img src="{{ asset('upload_images/' ~ sub_task.user.profilePicture) }}"
+                                        alt="{{ sub_task.user.name|slice(0,1) ~' '~ sub_task.user.surname|slice(0,1) }}"
+                                        class="rounded-circle border border-primary-emphasis border-2"
+                                        style="width:35px;height:35px; object-fit: cover; transition: box-shadow 0.2s;">
+                                </a>
+                                {{ sub_task.user.name|slice(0,15) ~' '~ sub_task.user.surname|slice(0,1) }}
+                            </span>
+                        </td>
+                        {% if sub_task.status == 'F' %}
+                            <td class="text-end">
+                                <span class="badge bg-warning">Pas commencée</span>
+                            </td>
+                        {% elseif sub_task.status == 'T' %}
+                            <td class="text-end">
+                                <span class="badge bg-success">Terminée</span>
+                            </td>
+                        {% elseif sub_task.status == 'D' %}
+                            <td class="text-end">
+                                <span class="badge bg-danger">En retard</span>
+                            </td>
+                        {% else %}
+                            <td class="text-end">
+                                <span class="badge bg-primary">En cour</span>
+                            </td>
+                        {% endif %}
                         <td class="text-end">
-                            <a href="{{ path('app_sub_task_show', {'id': sub_task.id}) }}" class="btn btn-sm btn-outline-info me-1" title="Afficher"><i class="fa fa-eye me-1"></i></a>
-                            <a href="{{ path('app_sub_task_edit', {'id': sub_task.id}) }}" class="btn btn-sm btn-outline-secondary" title="Modifier"><i class="fa fa-pencil me-1"></i></a>
+                            {% if(sub_task.status == 'F') %}
+                                <a href="{{ path('app_sub_pending', {'id': sub_task.id}) }}" class="btn btn-sm btn-info me-1" title="Afficher">
+                                    <i class="fa fa-play me-1"></i>
+                                </a>
+                            {% endif %}
+                            {% if(sub_task.status == 'P') %}
+                                <a href="{{ path('app_sub_terminated', {'id': sub_task.id}) }}" class="btn btn-sm btn-success me-1" title="Terminer">
+                                    <i class="fa fa-check me-1"></i>
+                                </a>
+                            {% endif %}
+                            {# <a href="{{ path('app_sub_task_start', {'id': sub_task.id}) }}" class="btn btn-sm btn-outline-success me-1" title="Démarrer la tâche">
+                                <i class="fa fa-play me-1"></i>
+                            </a> #}
+                            {% if(app.user and app.user.role.code == 'ADMIN') %}
+                                <a href="{{ path('app_sub_task_edit', {'id': sub_task.id, 'task_id': task.id}) }}" class="btn btn-sm btn-secondary" title="Modifier">
+                                    <i class="fa fa-pencil me-1"></i>
+                                </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% else %}

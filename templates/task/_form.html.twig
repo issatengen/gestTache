@@ -17,17 +17,18 @@
             {{ form_widget(form.fin, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.fin) }}
         </div>
-        <div class="form-group">
+        {# <div class="form-group">
             <label class="fw-bold">Semaine</label>
             {{ form_widget(form.task, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.task) }}
-        </div>
+        </div> #}
         <div class="form-group">
             <label class="fw-bold">Utilisateurs participant</label>
             {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.user) }}
         </div>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" id="submit-button" type="submit">
+            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" id="spinner" style="display: none;"></span>
             <i class="fa fa-save"></i>
             {{ button_label|default('Enregistrer') }}
         </button>

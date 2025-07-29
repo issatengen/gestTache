@@ -5,10 +5,7 @@
 {% block body %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Utilisateurs</h1>
-        <a href="{{ path('app_user_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fa fa-add me-1"></i> Liste des utilisateurs
-        </a>
+        <h1 class="h3 mb-0 text-gray-800 text-primary-emphasis">Utilisateurs</h1>
     </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -17,20 +14,63 @@
         </ol>
     </nav>
 
+    <div class="alert alert-info" role="alert">
+        <i class="fa fa-info-circle me-2"></i> Vous visualisez les détails de l'utilisateur <strong>{{ user.name }} {{ user.surname }}</strong>.
+    </div>
     <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Détails de l'utilisateur</h6>
+        </div>
         <div class="card-body">
-            <h5 class="card-title">User details</h5>
-            <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
-            <p class="card-text"><strong>Nom:</strong> {{ user.name }}</p>
-            <p class="card-text"><strong>Prénom:</strong> {{ user.surname }}</p>
-            <p class="card-text"><strong>Téléphone:</strong> {{ user.telephone }}</p>
-            <p class="card-text"><strong>Rôle:</strong> {{ user.role.code }}</p>
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="{{ asset('upload_images/' ~ user.profilePicture) }}" alt="User Image" class="img-fluid rounded mb-3" style="width: 20rem; height: 20rem;">
+            </div>
+            <div class="col-lg-6">
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="card-text"><strong>Nom:</strong> {{ user.name }}</p>
+                <p class="card-text"><strong>Prénom:</strong> {{ user.surname }}</p>
+                <p class="card-text"><strong>Téléphone:</strong> {{ user.telephone }}</p>
+                <p class="card-text"><strong>Rôle:</strong> {{ user.role.code }}</p>
+            </div>
+        </div>
         </div>
     </div>
-
-    <a href="{{ path('app_user_index') }}" class="btn btn-secondary me-2">
-        <i class="fa fa-list me-1"></i> Retour à la liste
-    </a>
+    <h2 class="h4 mb-3">Sous-tâches assignées</h2>
+    {% if subTasks is empty %}
+        <div class="alert alert-warning" role="alert">
+            <i class="fa fa-exclamation-triangle me-2"></i> Aucune sous-tâche assignée à cet utilisateur.
+        </div>
+    {% else %}
+        <ul class="list-group">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Libellé</th>
+                        <th scope="col">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subTask in subTasks %}
+                        <tr>
+                            <td>{{ subTask.label }}</td>
+                            <td>
+                                {% if subTask.status == 'F' %}
+                                    <span class="badge bg-warning">Pas commencée</span>
+                                {% elseif subTask.status == 'T' %}
+                                    <span class="badge bg-success">Terminée</span>
+                                {% elseif subTask.status == 'D' %}
+                                    <span class="badge bg-danger">En cours</span>
+                                {% else %}
+                                    <span class="badge bg-primary">En cours</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </ul>
+    {% endif %}
 
     <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">
         <i class="fa fa-edit me-1"></i> Modifier

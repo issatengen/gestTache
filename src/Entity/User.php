@@ -59,10 +59,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Department $department = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $profile_picture = null;
+
+    /**
+     * @var Collection<int, SubTask>
+     */
+    #[ORM\OneToMany(targetEntity: SubTask::class, mappedBy: 'user')]
+    private Collection $subTasks;
+
     public function __construct()
     {
         $this->activity = new ArrayCollection();
         $this->tasks = new ArrayCollection();
+        $this->subTasks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -250,6 +263,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRole(?Role $role): static
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getDepartment(): ?Department
+    {
+        return $this->department;
+    }
+
+    public function setDepartment(?Department $department): static
+    {
+        $this->department = $department;
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profile_picture;
+    }
+
+    public function setProfilePicture(?string $profile_picture): static
+    {
+        $this->profile_picture = $profile_picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SubTask>
+     */
+    public function getSubTasks(): Collection
+    {
+        return $this->subTasks;
+    }
+
+    public function addSubTask(SubTask $subTask): static
+    {
+        if (!$this->subTasks->contains($subTask)) {
+            $this->subTasks->add($subTask);
+            $subTask->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubTask(SubTask $subTask): static
+    {
+        if ($this->subTasks->removeElement($subTask)) {
+            // set the owning side to null (unless already changed)
+            if ($subTask->getUser() === $this) {
+                $subTask->setUser(null);
+            }
+        }
 
         return $this;
     }

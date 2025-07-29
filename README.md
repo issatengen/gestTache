@@ -13,7 +13,7 @@
 
 1. Clonez le dépôt :
     ```bash
-    git clone https://github.com/votre-utilisateur/gestTache.git
+    git clone https://github.com/issatengen/gestTache.git
     ```
 2. Installez les dépendances :
     ```bash

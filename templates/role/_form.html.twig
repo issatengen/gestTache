@@ -4,5 +4,8 @@
         <label for="code"> Code</label>
         <input >
     </div>
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-primary" type="submit" id="submit_button">
+        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" id="spinner" style="display: none;"></span>
+        <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+    </button>
 {{ form_end(form) }}

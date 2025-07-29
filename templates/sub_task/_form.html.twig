@@ -13,8 +13,15 @@
     {{ form_widget(form.fin,{'attr':{'class':'form-control'}}) }}
 </div>
 <div>
-    <label for="libelle">Date fin </label>
-    {{ form_widget(form.task,{'attr':{'class':'form-select'}}) }}
+    <label for="libelle">Temps alloué </label>
+    {{ form_widget(form.timeAllocated,{'attr':{'class':'form-control'}}) }} 
 </div>
-<button class="btn btn-primary mt-3" type="submit"><i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}</button>
+<div>
+    <label for="fin">Responsable </label>
+    {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+</div>
+<button class="btn btn-primary mt-3" type="submit" id="submit-button">
+    <span class=" me-1" role="status" aria-hidden="true"  style="display: none;"></span>
+    <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+</button>
 {{ form_end(form) }}

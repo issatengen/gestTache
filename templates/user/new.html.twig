@@ -5,15 +5,13 @@
 {% block body %}
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Ajouter utilisateur</h1>
-        <a href="{{ path('app_user_index') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fa fa-add me-1"></i> Liste des utilisateurs
-        </a>
+        <h1 class="h3 mb-0 text-gray-800 text-primary-emphasis"> <i class="fa fa-user-plus me-2"></i>Ajouter utilisateur</h1>
     </div>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ path('app_dashboard') }}" class="text-decoration-none">Tableau de bord</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Utilisateurs</li>
+            <li class="breadcrumb-item"><a href="{{ path('app_user_index') }}" class="text-decoration-none">Utilisateurs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ajouter un utilisateur</li>
         </ol>
     </nav>
 
@@ -21,25 +19,33 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <label for="user_name" class="fw-bold">Nom d'utilisateur</label>
                     {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <label for="user_surname" class="fw-bold">Prénom d'utilisateur</label>
                     {{ form_widget(form.surname, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <label for="user_username" class="fw-bold">Email d'utilisateur</label>
                     {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <label for="user_telephone" class="fw-bold">Téléphone d'utilisateur</label>
                     {{ form_widget(form.telephone, {'attr': {'class': 'form-control'}}) }}
                 </div>
+                <div class="col-md-5">
+                    <label for="user_telephone" class="fw-bold">Photo de profil</label>
+                    {{ form_widget(form.profile_picture, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-md-7">
+                    <label for="user_telephone" class="fw-bold">Département</label>
+                    {{ form_widget(form.department, {'attr': {'class': 'form-control'}}) }}
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <label for="user_password" class="fw-bold">Mot de passe</label>
                     {# <p class="text-muted">Laisser vide si vous ne souhaitez pas modifier le mot de passe</p> #}
                     {# <p class="text-muted">Le mot de passe doit contenir au moins 6 caractères</p>
@@ -47,7 +53,7 @@
                     <p class="text-muted">Le mot de passe doit contenir au moins un caractère spécial</p> #}
                     {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <label for="user_role" class="fw-bold">Rôle d'utilisateur</label>
                     {# <p class="text-muted">Sélectionnez le rôle de l'utilisateur</p>
                     <p class="text-muted">Le rôle détermine les permissions de l'utilisateur dans l'application</p>
@@ -58,9 +64,10 @@
                     <p class="text-muted">Le rôle de l'utilisateur est obligatoire</p> #}
                     {{ form_widget(form.role, {'attr': {'class': 'form-select'}}) }}
                 </div>
-                <div class="col-md-7">
-                    <button class="btn btn-primary mt-4" type="submit">
-                        <i class="fa fa-database me-1"></i>{{ button_label|default('Enregistrer') }}
+                <div class="col-md-6">
+                    <button class="btn btn-primary mt-4" type="submit" id="submit-button">
+                        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true" id="spinner" style="display: none;"></span>
+                        <i class="fa fa-save me-1"></i>{{ button_label|default('Enregistrer') }}
                     </button> 
                 </div>
             </div>
@@ -68,5 +75,5 @@
     </div>
     {{ form_end(form) }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+
 {% endblock %}

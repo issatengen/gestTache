@@ -14,9 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/week')]
 final class WeekController extends AbstractController
 {
+
     #[Route(name: 'app_week_index', methods: ['GET'])]
     public function index(WeekRepository $weekRepository): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('week/index.html.twig', [
             'weeks' => $weekRepository->findAll(),
         ]);
@@ -25,6 +29,9 @@ final class WeekController extends AbstractController
     #[Route('/new', name: 'app_week_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         $week = new Week();
         $form = $this->createForm(WeekForm::class, $week);
         $form->handleRequest($request);
@@ -46,6 +53,9 @@ final class WeekController extends AbstractController
     #[Route('/{id}', name: 'app_week_show', methods: ['GET'])]
     public function show(Week $week): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         return $this->render('week/show.html.twig', [
             'week' => $week,
         ]);
@@ -54,6 +64,9 @@ final class WeekController extends AbstractController
     #[Route('/{id}/edit', name: 'app_week_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Week $week, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         $form = $this->createForm(WeekForm::class, $week);
         $form->handleRequest($request);
 
@@ -72,6 +85,9 @@ final class WeekController extends AbstractController
     #[Route('/{id}', name: 'app_week_delete', methods: ['POST'])]
     public function delete(Request $request, Week $week, EntityManagerInterface $entityManager): Response
     {
+        if($this->getUser() === null ) {
+            return $this->redirectToRoute('app_login');
+        }
         if ($this->isCsrfTokenValid('delete'.$week->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($week);
             $entityManager->flush();

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250617004039 extends AbstractMigration
+final class Version20250718061425 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,13 +24,16 @@ final class Version20250617004039 extends AbstractMigration
             CREATE TABLE activity (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, users_id INT NOT NULL, label VARCHAR(50) NOT NULL, INDEX IDX_AC74095AA76ED395 (user_id), INDEX IDX_AC74095A67B3B43D (users_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
+            CREATE TABLE department (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(10) NOT NULL, label VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+        SQL);
+        $this->addSql(<<<'SQL'
             CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, code VARCHAR(10) NOT NULL, label VARCHAR(50) NOT NULL, description LONGTEXT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE TABLE sub_task (id INT AUTO_INCREMENT NOT NULL, task_id INT NOT NULL, label VARCHAR(50) NOT NULL, debut DATETIME NOT NULL, fin DATETIME DEFAULT NULL, INDEX IDX_75E844E48DB60186 (task_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+            CREATE TABLE sub_task (id INT AUTO_INCREMENT NOT NULL, task_id INT NOT NULL, user_id INT DEFAULT NULL, label VARCHAR(50) NOT NULL, debut DATETIME NOT NULL, fin DATETIME NOT NULL, status VARCHAR(10) DEFAULT NULL, time_allocated DOUBLE PRECISION NOT NULL, INDEX IDX_75E844E48DB60186 (task_id), INDEX IDX_75E844E4A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE TABLE task (id INT AUTO_INCREMENT NOT NULL, designation VARCHAR(50) NOT NULL, debut DATETIME NOT NULL, fin DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+            CREATE TABLE task (id INT AUTO_INCREMENT NOT NULL, department_id INT DEFAULT NULL, designation VARCHAR(50) NOT NULL, debut DATETIME NOT NULL, fin DATETIME NOT NULL, INDEX IDX_527EDB25AE80F5DF (department_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE task_user (task_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_FE2042328DB60186 (task_id), INDEX IDX_FE204232A76ED395 (user_id), PRIMARY KEY(task_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
@@ -39,7 +42,7 @@ final class Version20250617004039 extends AbstractMigration
             CREATE TABLE type_activity (id INT AUTO_INCREMENT NOT NULL, label VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, role_id INT NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(150) NOT NULL, surname VARCHAR(255) NOT NULL, telephone VARCHAR(20) DEFAULT NULL, INDEX IDX_8D93D649D60322AC (role_id), UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+            CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, role_id INT NOT NULL, department_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, name VARCHAR(150) NOT NULL, surname VARCHAR(255) NOT NULL, telephone VARCHAR(20) DEFAULT NULL, profile_picture VARCHAR(100) DEFAULT NULL, INDEX IDX_8D93D649D60322AC (role_id), INDEX IDX_8D93D649AE80F5DF (department_id), UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE week (id INT AUTO_INCREMENT NOT NULL, task_id INT DEFAULT NULL, month VARCHAR(20) NOT NULL, year DATE NOT NULL, debut DATE NOT NULL, fin DATE DEFAULT NULL, INDEX IDX_5B5A69C08DB60186 (task_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
@@ -60,6 +63,12 @@ final class Version20250617004039 extends AbstractMigration
             ALTER TABLE sub_task ADD CONSTRAINT FK_75E844E48DB60186 FOREIGN KEY (task_id) REFERENCES task (id)
         SQL);
         $this->addSql(<<<'SQL'
+            ALTER TABLE sub_task ADD CONSTRAINT FK_75E844E4A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE task ADD CONSTRAINT FK_527EDB25AE80F5DF FOREIGN KEY (department_id) REFERENCES department (id)
+        SQL);
+        $this->addSql(<<<'SQL'
             ALTER TABLE task_user ADD CONSTRAINT FK_FE2042328DB60186 FOREIGN KEY (task_id) REFERENCES task (id) ON DELETE CASCADE
         SQL);
         $this->addSql(<<<'SQL'
@@ -67,6 +76,9 @@ final class Version20250617004039 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE user ADD CONSTRAINT FK_8D93D649D60322AC FOREIGN KEY (role_id) REFERENCES role (id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE user ADD CONSTRAINT FK_8D93D649AE80F5DF FOREIGN KEY (department_id) REFERENCES department (id)
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE week ADD CONSTRAINT FK_5B5A69C08DB60186 FOREIGN KEY (task_id) REFERENCES task (id)
@@ -92,6 +104,12 @@ final class Version20250617004039 extends AbstractMigration
             ALTER TABLE sub_task DROP FOREIGN KEY FK_75E844E48DB60186
         SQL);
         $this->addSql(<<<'SQL'
+            ALTER TABLE sub_task DROP FOREIGN KEY FK_75E844E4A76ED395
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE task DROP FOREIGN KEY FK_527EDB25AE80F5DF
+        SQL);
+        $this->addSql(<<<'SQL'
             ALTER TABLE task_user DROP FOREIGN KEY FK_FE2042328DB60186
         SQL);
         $this->addSql(<<<'SQL'
@@ -99,6 +117,9 @@ final class Version20250617004039 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE user DROP FOREIGN KEY FK_8D93D649D60322AC
+        SQL);
+        $this->addSql(<<<'SQL'
+            ALTER TABLE user DROP FOREIGN KEY FK_8D93D649AE80F5DF
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE week DROP FOREIGN KEY FK_5B5A69C08DB60186
@@ -111,6 +132,9 @@ final class Version20250617004039 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE activity
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP TABLE department
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE role
